@@ -41,11 +41,6 @@ void Player::drawRays3D(const cv::String &name) {
     int nThreads = 8;
     int xPixels = window::Window::getXPixels(name);
     int size = rays.size();
-//    for (unsigned long i = 0; i < size; i++) {
-//        int xLeft = static_cast<int>(xPixels * (size-i-1) / size);
-//        int width = static_cast<int>(xPixels/size);
-//        rays[i].draw3D(name, xLeft, width);
-//    }
 
     if (nThreads > 1) {
         // Init Thread arguments
@@ -137,7 +132,7 @@ void Player::move(double dt, int key) {
 
 void Player::calculateCollisions(const cv::String &name, World &world) {
     for (auto &ray : rays) {
-        ray.calculateCollision(name, world);
+        ray.calculateCollision(name, world, viewdistance);
     }
 }
 

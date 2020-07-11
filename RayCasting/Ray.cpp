@@ -14,10 +14,10 @@ void rc::Ray::drawTopDown(const cv::String &name, const Position &endPoint) {
     window::Drawer::drawLineSegment(name, position.x, position.y, endPoint.x, endPoint.y, {255,255,255});
 }
 
-void rc::Ray::calculateCollision(const cv::String &name, World &walls) {
+void rc::Ray::calculateCollision(const cv::String &name, World &walls, const double &viewDistance) {
     walls.sortWalls(position);
 
-    resetEnd(name);
+    resetEnd(name, viewDistance);
     for (auto &wall : walls.getWalls()) {
         Position newEnd = lineSegmentIntersection(position, end, wall.start, wall.end);
         if (newEnd != Position()) {
@@ -27,10 +27,9 @@ void rc::Ray::calculateCollision(const cv::String &name, World &walls) {
     }
 }
 
-void rc::Ray::resetEnd(const cv::String &name) {
-    int length = std::max(window::Window::getXPixels(name), window::Window::getYPixels(name));
-    double xEnd = position.x + sin(angle.getAngleRad()) * length;
-    double yEnd = position.y + cos(angle.getAngleRad()) * length;
+void rc::Ray::resetEnd(const cv::String &name, const double &viewDistance) {
+    double xEnd = position.x + sin(angle.getAngleRad()) * viewDistance;
+    double yEnd = position.y + cos(angle.getAngleRad()) * viewDistance;
     end = Position(xEnd, yEnd);
 }
 

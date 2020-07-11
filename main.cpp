@@ -11,20 +11,25 @@
 #include "RayCasting/Ray.h"
 
 int main() {
-    // init 3D Window
-    cv::String windowName3D = "Raycaster 3D View";
-    window::Window::initializeWindow(windowName3D, 1024, 768);
 
     // init Top Down Window
     cv::String windowNameTopDown = "Raycaster Top Down View";
     window::Window::initializeWindow(windowNameTopDown, 512, 768);
+
+    // init 3D Window
+    cv::String windowName3D = "Raycaster 3D View";
+    window::Window::initializeWindow(windowName3D, 1024, 768);
+
+    // move Windows
+    cv::waitKey(1);
+    window::Window::moveWindows({windowName3D,windowNameTopDown}, 100,100,true);
 
     // init World
     World world;
     world.getWallsFromFile("./../walls.txt");
 
     // init Player
-    Player player = Player({0, 0}, Angle(120), 120, 1440);
+    Player player = Player({0, 0}, Angle(0), 120, 1440);
 
     // init Timer
     Timer timer;

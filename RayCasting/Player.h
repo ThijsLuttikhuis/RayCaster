@@ -36,8 +36,9 @@ private:
     Angle lookDirection;
     double fieldOfView;
     int resolution360;
-    double moveSpeed = 500;
-    double rotateSpeed = 500;
+    double moveSpeed = 500;         // cm/s
+    double rotateSpeed = 360;       // deg/s
+    double viewdistance = 20000;    // cm
 
     std::vector<rc::Ray> rays;
 

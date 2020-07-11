@@ -27,9 +27,9 @@ public:
     void drawTopDown(const cv::String &name, const Position &end);
     void draw3D(const cv::String &name, int xLeft, int width);
 
-    void calculateCollision(const cv::String &name, World &walls);
+    void calculateCollision(const cv::String &name, World &walls, const double &viewDistance);
 
-    void resetEnd(const cv::String &name);
+    void resetEnd(const cv::String &name, const double &viewDistance);
 };
 
 } //rc
