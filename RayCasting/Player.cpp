@@ -21,6 +21,7 @@ void Player::createRays() {
 }
 
 void Player::drawRaysTopDown(const cv::String &name){
+    Position centerOfScreen = {0.5*window::Window::getXPixels(name), 0.5*window::Window::getYPixels(name)};
     int maxDrawnRays = 10;
     int size = rays.size();
     double skip = 0;
@@ -31,10 +32,11 @@ void Player::drawRaysTopDown(const cv::String &name){
     for (auto &ray : rays) {
         if ((count+=1) > skip) {
             count -= skip;
-            ray.drawTopDown(name);
+            ray.drawTopDown(name, centerOfScreen);
         }
     }
-    window::Drawer::drawCircle(name, (int)position.x, (int)position.y, 3, 5, {255,255,255});
+    window::Drawer::drawCircle(name, centerOfScreen.x, centerOfScreen.y,
+          3, 5, {255,255,255});
 }
 
 void Player::drawRays3D(const cv::String &name) {
@@ -134,6 +136,10 @@ void Player::calculateCollisions(const cv::String &name, World &world) {
     for (auto &ray : rays) {
         ray.calculateCollision(name, world, viewdistance);
     }
+}
+
+const Position &Player::getPosition() const {
+    return position;
 }
 
 

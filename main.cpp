@@ -10,6 +10,9 @@
 #include "RayCasting/Player.h"
 #include "RayCasting/Ray.h"
 
+//#define PRINT_TIMING
+#define PRINT_KEY_PRESS
+
 int main() {
 
     // init Top Down Window
@@ -21,7 +24,7 @@ int main() {
     window::Window::initializeWindow(windowName3D, 1024, 768);
 
     // move Windows
-    cv::waitKey(1);
+    cv::waitKeyEx(1);
     window::Window::moveWindows({windowName3D,windowNameTopDown}, 100,100,true);
 
     // init World
@@ -41,10 +44,21 @@ int main() {
     Timer timerDrawTopDown("Top Down Draw Time");
     timerDrawTopDown.start();
 
+    bool printTotalTime = false;
+#ifdef PRINT_TIMING
+    printTotalTime = true;
+#endif
+
     // game Loop
     while(true) {
-        double t = timer.getSeconds(true);
+
+        double t = timer.getSeconds(printTotalTime);
+
         int key = window::Window::updateWindow(windowNameTopDown);
+#ifdef PRINT_KEY_PRESS
+        std::cout << "key: " << key << std::endl;
+#endif
+
         window::Window::updateWindow(windowName3D);
 
         // reset Window
@@ -64,14 +78,22 @@ int main() {
         player.calculateCollisions(windowNameTopDown, world);
 
         // draw Top Down
+#ifdef PRINT_TIMING
         timerDrawTopDown.start();
-        player.drawRaysTopDown(windowNameTopDown);
-        world.drawWallsTopDown(windowNameTopDown);
-        timerDrawTopDown.printMilliSeconds();
+#endif
 
+        player.drawRaysTopDown(windowNameTopDown);
+        world.drawWallsTopDown(windowNameTopDown, player.getPosition());
+#ifdef PRINT_TIMING
+        timerDrawTopDown.printMilliSeconds();
+#endif
         // draw 3D
+#ifdef PRINT_TIMING
         timerDraw3D.start();
+#endif
         player.drawRays3D(windowName3D);
+#ifdef PRINT_TIMING
         timerDraw3D.printMilliSeconds();
+#endif
     }
 }

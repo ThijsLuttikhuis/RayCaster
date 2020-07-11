@@ -7,6 +7,7 @@
 #include <algorithm>
 #include "World.h"
 #include "../Utils/Utilities.h"
+#include "../Window/Window.h"
 
 bool World::getWallsFromFile(const std::string &fileName) {
     walls.clear();
@@ -39,9 +40,10 @@ bool World::getWallsFromFile(const std::string &fileName) {
     return false;
 }
 
-void World::drawWallsTopDown(const cv::String &name) {
+void World::drawWallsTopDown(const cv::String &name, const Position &playerPosition) {
+    Position centerOfScreen = {0.5*window::Window::getXPixels(name), 0.5*window::Window::getYPixels(name)};
     for (auto &wall : walls) {
-        wall.drawTopDown(name);
+        wall.drawTopDown(name, playerPosition - centerOfScreen);
     }
 }
 

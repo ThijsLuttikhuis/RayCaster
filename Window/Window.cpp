@@ -55,7 +55,7 @@ void Window::initializeWindow(const cv::String &name, const int &width, const in
 
 int Window::updateWindow(const cv::String &name) {
     cv::imshow(name, images[name]);
-    return cv::waitKey(1);
+    return cv::waitKeyEx(1);
 }
 
 void Window::resetWindow(const cv::String &name) {

@@ -23,8 +23,7 @@ private:
 public:
     Ray(Position position, Angle angle) : position(position), angle(angle) { };
 
-    void drawTopDown(const cv::String &name);
-    void drawTopDown(const cv::String &name, const Position &end);
+    void drawTopDown(const cv::String &name, const Position &centerPoint);
     void draw3D(const cv::String &name, int xLeft, int width);
 
     void calculateCollision(const cv::String &name, World &walls, const double &viewDistance);

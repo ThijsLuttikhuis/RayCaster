@@ -52,6 +52,8 @@ public:
     void createRays();
     void calculateCollisions(const cv::String &name, World &world);
 
+    [[nodiscard]] const Position &getPosition() const;
+
     void drawRaysTopDown(const cv::String &name);
     void drawRays3D(const cv::String &name);
 

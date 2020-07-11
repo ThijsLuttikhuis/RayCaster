@@ -17,7 +17,7 @@ public:
     Position start;
     Position end;
 
-    void drawTopDown(const cv::String &name);
+    void drawTopDown(const cv::String &name, const Position &centerOfScreen);
 
     Wall() : type(""), start(), end() { };
     Wall(std::string type, const Position &start, const Position &end) :

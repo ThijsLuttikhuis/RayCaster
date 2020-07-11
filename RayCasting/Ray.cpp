@@ -6,12 +6,9 @@
 #include "../Window/Drawer.h"
 #include "../Utils/Utilities.h"
 
-void rc::Ray::drawTopDown(const cv::String &name) {
-    window::Drawer::drawLineSegment(name, position.x, position.y, end.x, end.y, {255,255,255});
-}
-
-void rc::Ray::drawTopDown(const cv::String &name, const Position &endPoint) {
-    window::Drawer::drawLineSegment(name, position.x, position.y, endPoint.x, endPoint.y, {255,255,255});
+void rc::Ray::drawTopDown(const cv::String &name, const Position &centerPoint) {
+    window::Drawer::drawLineSegment(name, centerPoint.x, centerPoint.y,
+          centerPoint.x - position.x + end.x, centerPoint.y - position.y + end.y, {255,255,255});
 }
 
 void rc::Ray::calculateCollision(const cv::String &name, World &walls, const double &viewDistance) {
