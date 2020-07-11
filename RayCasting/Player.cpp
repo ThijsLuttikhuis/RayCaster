@@ -8,11 +8,11 @@
 
 void Player::createRays() {
     rays.clear();
-    double fov_2 = fieldOfView/2.0;
+    double fov_2 = fovHorizontal / 2.0;
     Angle aS = lookDirection - fov_2;
     double fovCounter = 0.0;
 
-    while (fovCounter < fieldOfView) {
+    while (fovCounter < fovHorizontal) {
         Angle rA = aS + fovCounter;
         rc::Ray ray = rc::Ray(position, rA);
         rays.push_back(ray);
@@ -22,7 +22,7 @@ void Player::createRays() {
 
 void Player::drawRaysTopDown(const cv::String &name){
     Position centerOfScreen = {0.5*window::Window::getXPixels(name), 0.5*window::Window::getYPixels(name)};
-    int maxDrawnRays = 10;
+    int maxDrawnRays = 20;
     int size = rays.size();
     double skip = 0;
     if (size > maxDrawnRays) {
@@ -88,7 +88,7 @@ void* Player::drawRays3DThread(void* arg) {
     for (unsigned long i = startIndex; i < endIndex; i++) {
         int xLeft = static_cast<int>(xPixels * (size-i-1) / size);
         int width = static_cast<int>(xPixels/size);
-        rays[i].draw3D(name, xLeft, width);
+        rays[i].draw3D(name, xLeft, width, fovHorizontal);
     }
 
     return nullptr;

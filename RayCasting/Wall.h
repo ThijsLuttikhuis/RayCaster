@@ -16,6 +16,7 @@ public:
     std::string type;
     Position start;
     Position end;
+    double height;
 
     void drawTopDown(const cv::String &name, const Position &centerOfScreen);
 

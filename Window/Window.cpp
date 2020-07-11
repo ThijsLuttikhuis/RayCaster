@@ -51,6 +51,7 @@ void Window::initializeWindow(const cv::String &name, const int &width, const in
     auto* image = new cv::Mat(height, width, CV_8UC3);
     images[name] = *image;
     cv::namedWindow(name, cv::WINDOW_AUTOSIZE);
+    resetWindow(name);
 }
 
 int Window::updateWindow(const cv::String &name) {

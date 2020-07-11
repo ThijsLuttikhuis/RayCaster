@@ -32,7 +32,7 @@ int main() {
     world.getWallsFromFile("./../walls.txt");
 
     // init Player
-    Player player = Player({0, 0}, Angle(0), 120, 1440);
+    Player player = Player({400, 500}, Angle(0), 90, 1440);
 
     // init Timer
     Timer timer;
@@ -81,12 +81,12 @@ int main() {
 #ifdef PRINT_TIMING
         timerDrawTopDown.start();
 #endif
-
         player.drawRaysTopDown(windowNameTopDown);
         world.drawWallsTopDown(windowNameTopDown, player.getPosition());
 #ifdef PRINT_TIMING
         timerDrawTopDown.printMilliSeconds();
 #endif
+
         // draw 3D
 #ifdef PRINT_TIMING
         timerDraw3D.start();

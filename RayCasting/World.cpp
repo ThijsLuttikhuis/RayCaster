@@ -22,14 +22,15 @@ bool World::getWallsFromFile(const std::string &fileName) {
             }
             std::vector<std::string> parsedLine;
             split(line, parsedLine, ',');
-            char comment = '#';
-            if ((int)parsedLine[0][0] == (int)comment) {
+            char startComment = '#';
+            if ((int)parsedLine[0][0] == (int)startComment) {
                 continue;
             }
             Wall wall;
             wall.type = parsedLine[0];
             wall.start = {std::stod(parsedLine[1]), std::stod(parsedLine[2])};
             wall.end = {std::stod(parsedLine[3]), std::stod(parsedLine[4])};
+            wall.height = std::stod(parsedLine[5]);
             walls.push_back(wall);
         }
         myfile.close();

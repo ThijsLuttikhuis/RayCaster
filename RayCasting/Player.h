@@ -34,7 +34,7 @@ class Player {
 private:
     Position position;
     Angle lookDirection;
-    double fieldOfView;
+    double fovHorizontal;
     int resolution360;
     double moveSpeed = 500;         // cm/s
     double rotateSpeed = 360;       // deg/s
@@ -46,7 +46,8 @@ private:
 
 public:
     Player(Position position, Angle lookDirection, double fieldOfView, int resolution360) :
-        position(position), lookDirection(lookDirection), fieldOfView(fieldOfView), resolution360(resolution360) {};
+          position(position), lookDirection(lookDirection),
+          fovHorizontal(fieldOfView), resolution360(resolution360) {};
 
     void move(double dt, int key);
     void createRays();

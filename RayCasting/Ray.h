@@ -13,18 +13,24 @@
 
 namespace rc { //raycasting
 
+class WallIntersect {
+public:
+    Position location;
+    double wallHeight;
+    std::string wallTexture;
+};
+
 class Ray {
 private:
     Position position;
-    Position end;
+    WallIntersect wallIntersect;
     Angle angle;
-
 
 public:
     Ray(Position position, Angle angle) : position(position), angle(angle) { };
 
     void drawTopDown(const cv::String &name, const Position &centerPoint);
-    void draw3D(const cv::String &name, int xLeft, int width);
+    void draw3D(const cv::String &name, int xLeft, int width, const double &fovHorizonal);
 
     void calculateCollision(const cv::String &name, World &walls, const double &viewDistance);
 
