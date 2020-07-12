@@ -643,6 +643,7 @@ CMakeFiles/RayCaster.dir/Window/Drawer.cpp.o
  /usr/local/include/opencv4/opencv2/video/tracking.hpp
  /usr/local/include/opencv4/opencv2/videoio.hpp
 CMakeFiles/RayCaster.dir/Window/Window.cpp.o
+ /home/thijs/Raycaster/RayCaster/Utils/Timer.h
  /home/thijs/Raycaster/RayCaster/Window/Drawer.h
  /home/thijs/Raycaster/RayCaster/Window/Window.cpp
  /home/thijs/Raycaster/RayCaster/Window/Window.h

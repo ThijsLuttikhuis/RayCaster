@@ -17,11 +17,11 @@ int main() {
 
     // init Top Down Window
     cv::String windowNameTopDown = "Raycaster Top Down View";
-    window::Window::initializeWindow(windowNameTopDown, 512, 768);
+    window::Window::initializeWindow(windowNameTopDown, 500, 800);
 
     // init 3D Window
     cv::String windowName3D = "Raycaster 3D View";
-    window::Window::initializeWindow(windowName3D, 1024, 768);
+    window::Window::initializeWindow(windowName3D, 1280, 800);
 
     // move Windows
     cv::waitKeyEx(1);
@@ -32,7 +32,9 @@ int main() {
     world.getWallsFromFile("./../walls.txt");
 
     // init Player
-    Player player = Player({400, 500}, Angle(0), 90, 1440);
+    double fovHorizontal = 90;
+    int resolution360 = static_cast<int>(window::Window::getXPixels(windowName3D) * 360 / fovHorizontal);
+    Player player = Player({100, 100}, Angle(0), fovHorizontal, resolution360);
 
     // init Timer
     Timer timer;

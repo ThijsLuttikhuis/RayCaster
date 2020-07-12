@@ -4,6 +4,7 @@
 
 #include "Window.h"
 #include "Drawer.h"
+#include "../Utils/Timer.h"
 
 namespace window {
 

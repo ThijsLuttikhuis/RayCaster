@@ -40,7 +40,7 @@ void Player::drawRaysTopDown(const cv::String &name){
 }
 
 void Player::drawRays3D(const cv::String &name) {
-    int nThreads = 8;
+    int nThreads = 12;
     int xPixels = window::Window::getXPixels(name);
     int size = rays.size();
 

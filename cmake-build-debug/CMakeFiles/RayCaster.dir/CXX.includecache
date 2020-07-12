@@ -6,13 +6,19 @@
 
 #IncludeRegexTransform: 
 
-/home/thijs/Raycaster/RayCaster/RayCasting/Ray.cpp
+/home/thijs/Raycaster/RayCaster/RayCasting/Player.h
+vector
+-
+../Utils/Position.h
+/home/thijs/Raycaster/RayCaster/Utils/Position.h
+../Utils/Angle.h
+/home/thijs/Raycaster/RayCaster/Utils/Angle.h
 Ray.h
 /home/thijs/Raycaster/RayCaster/RayCasting/Ray.h
-../Window/Drawer.h
-/home/thijs/Raycaster/RayCaster/Window/Drawer.h
-../Utils/Utilities.h
-/home/thijs/Raycaster/RayCaster/Utils/Utilities.h
+../Utils/Timer.h
+/home/thijs/Raycaster/RayCaster/Utils/Timer.h
+World.h
+/home/thijs/Raycaster/RayCaster/RayCasting/World.h
 
 /home/thijs/Raycaster/RayCaster/RayCasting/Ray.h
 opencv2/core/cvstd.hpp
@@ -50,12 +56,8 @@ Wall.h
 cfloat
 -
 
-/home/thijs/Raycaster/RayCaster/Utils/Utilities.h
-string
--
-sstream
--
-iterator
+/home/thijs/Raycaster/RayCaster/Utils/Timer.h
+opencv2/core.hpp
 -
 
 /home/thijs/Raycaster/RayCaster/Window/Drawer.h
@@ -83,6 +85,22 @@ iostream
 -
 map
 -
+
+/home/thijs/Raycaster/RayCaster/main.cpp
+iostream
+-
+opencv2/opencv.hpp
+-
+Window/Window.h
+/home/thijs/Raycaster/RayCaster/Window/Window.h
+Window/Drawer.h
+/home/thijs/Raycaster/RayCaster/Window/Drawer.h
+Utils/Timer.h
+/home/thijs/Raycaster/RayCaster/Utils/Timer.h
+RayCasting/Player.h
+/home/thijs/Raycaster/RayCaster/RayCasting/Player.h
+RayCasting/Ray.h
+/home/thijs/Raycaster/RayCaster/RayCasting/Ray.h
 
 /usr/local/include/opencv4/opencv2/calib3d.hpp
 opencv2/core.hpp

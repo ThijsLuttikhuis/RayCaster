@@ -47,22 +47,22 @@ void rc::Ray::draw3D(const cv::String &name, int xLeft, int width, const double 
         return;
     }
 
-    double wallBottom = - playerHeight;
-    double wallTop = wallIntersect.wallHeight - playerHeight;
+    double wallBottom = playerHeight;
+    double wallTop = playerHeight - wallIntersect.wallHeight;
 
     int yPixels = window::Window::getYPixels(name);
     int xPixels = window::Window::getXPixels(name);
 
     double fovVertical = fovHorizontal * yPixels / xPixels;
-    double fovVerticalRad = fovVertical * M_PI / 180;
+    double fovVerticalRad = deg2Rad(fovVertical);
     double verticalDistance = horizontalDistance*tan(0.5*fovVerticalRad);
 
     int bottomDrawHeight = static_cast<int>(yPixels * (0.5*wallBottom/verticalDistance + 0.5));
     int topDrawHeight = static_cast<int>(yPixels * (0.5*wallTop/verticalDistance + 0.5));
 
-    bottomDrawHeight = bottomDrawHeight < 0 ? 0 : bottomDrawHeight;
-    topDrawHeight = topDrawHeight > yPixels ? yPixels : topDrawHeight;
+    bottomDrawHeight = bottomDrawHeight > yPixels ? yPixels : bottomDrawHeight;
+    topDrawHeight = topDrawHeight < 0 ? 0 : topDrawHeight;
 
-    window::Drawer::drawRectangle(name, xLeft, bottomDrawHeight,
-          width, topDrawHeight - bottomDrawHeight, {255,255,255});
+    window::Drawer::drawRectangle(name, xLeft, topDrawHeight,
+          width, bottomDrawHeight - topDrawHeight, {255,255,255});
 }

@@ -65,4 +65,11 @@ static Position lineSegmentIntersection(Position r0, Position r1, Position a, Po
     return {}; // No collision
 }
 
+static double deg2Rad(const double &deg) {
+    return deg * M_PI / 180.0;
+}
+
+static double rad2Deg(const double &rad) {
+    return rad * 180.0 / M_PI;
+}
 #endif //RAYCASTER_UTILITIES_H
