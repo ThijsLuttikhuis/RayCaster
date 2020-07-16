@@ -67,9 +67,6 @@ void rc::Ray::draw3D(const cv::String &name, int xLeft, int width, const double 
     bottomDrawHeight = bottomDrawHeight > yPixels ? yPixels : bottomDrawHeight;
     topDrawHeight = topDrawHeight < 0 ? 0 : topDrawHeight;
 
-    //window::Drawer::drawRectangle(name, xLeft, topDrawHeight,
-    //      width, bottomDrawHeight - topDrawHeight, {255,255,255});
-
     window::Texture::drawTexture(name, wallIntersect.wallTexture, xLeft, bottomDrawHeight,
           topDrawHeight, realBottom, realTop, wallIntersect.wallSection, wallIntersect.wallHeight);
 }

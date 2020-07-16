@@ -81,7 +81,7 @@ void Texture::drawTexture(const std::string &windowName, const std::string &text
     int textureXPixel = static_cast<int>(texture.cols * xLocation);
 
     for (int i = bottomPixel - realBottom; i < realYPixels; i++) {
-        int textureYPixel = static_cast<int>(std::fmod(
+        int textureYPixel = static_cast<int>(repeats * std::fmod(
               (double)i / realYPixels, 1.0/repeats) * texture.rows);
 
         auto &pixelColor = texture.at<cv::Vec3b>(textureYPixel, textureXPixel);

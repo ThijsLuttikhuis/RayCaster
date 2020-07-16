@@ -17,9 +17,8 @@
 int main() {
 
     // init Textures
-    window::Texture::addTexture("../stonebrick.png", 50, 50);
+    window::Texture::addTexture("../clocktexture.png", "stonebrick", 80, 80);
 
-    cv::waitKeyEx(0);
     // init Top Down Window
     cv::String windowNameTopDown = "Raycaster Top Down View";
     window::Window::initializeWindow(windowNameTopDown, 500, 800);
