@@ -41,10 +41,10 @@ bool World::getWallsFromFile(const std::string &fileName) {
     return false;
 }
 
-void World::drawWallsTopDown(const cv::String &name, const Position &playerPosition) {
+void World::drawWallsTopDown(const cv::String &name, const Player &player) {
     Position centerOfScreen = {0.5*window::Window::getXPixels(name), 0.5*window::Window::getYPixels(name)};
     for (auto &wall : walls) {
-        wall.drawTopDown(name, playerPosition - centerOfScreen);
+        wall.drawTopDown(name, centerOfScreen, player);
     }
 }
 

@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/thijs/Raycaster/RayCaster/RayCasting/Player.cpp" "/home/thijs/Raycaster/RayCaster/cmake-build-debug/CMakeFiles/RayCaster.dir/RayCasting/Player.cpp.o"
   "/home/thijs/Raycaster/RayCaster/RayCasting/Ray.cpp" "/home/thijs/Raycaster/RayCaster/cmake-build-debug/CMakeFiles/RayCaster.dir/RayCasting/Ray.cpp.o"
+  "/home/thijs/Raycaster/RayCaster/RayCasting/Texture.cpp" "/home/thijs/Raycaster/RayCaster/cmake-build-debug/CMakeFiles/RayCaster.dir/RayCasting/Texture.cpp.o"
   "/home/thijs/Raycaster/RayCaster/RayCasting/Wall.cpp" "/home/thijs/Raycaster/RayCaster/cmake-build-debug/CMakeFiles/RayCaster.dir/RayCasting/Wall.cpp.o"
   "/home/thijs/Raycaster/RayCaster/RayCasting/World.cpp" "/home/thijs/Raycaster/RayCaster/cmake-build-debug/CMakeFiles/RayCaster.dir/RayCasting/World.cpp.o"
   "/home/thijs/Raycaster/RayCaster/Utils/Angle.cpp" "/home/thijs/Raycaster/RayCaster/cmake-build-debug/CMakeFiles/RayCaster.dir/Utils/Angle.cpp.o"

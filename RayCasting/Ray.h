@@ -18,6 +18,7 @@ public:
     Position location;
     double wallHeight;
     std::string wallTexture;
+    double wallSection;
 };
 
 class Ray {
@@ -29,7 +30,7 @@ private:
 public:
     Ray(Position position, Angle angle) : position(position), angle(angle) { };
 
-    void drawTopDown(const cv::String &name, const Position &centerPoint);
+    void drawTopDown(const cv::String &name, const Position &centerPoint, const double &zoomFactor);
     void draw3D(const cv::String &name, int xLeft, int width, const double &fovHorizonal);
 
     void calculateCollision(const cv::String &name, World &walls, const double &viewDistance);

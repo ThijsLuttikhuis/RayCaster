@@ -1,10 +1,11 @@
 # format:
 # wallName, startX, startY, endX, endY, wallHeight
 
-brick,0,0,300,0,250
-brick,0,0,0,1000,250
-brick,300,1000,300,0,250
-brick,300,1000,0,1000,250
+stonebrick,0,0,300,0,250
+stonebrick,0,0,0,1000,250
+stonebrick,300,1000,300,0,250
+stonebrick,300,1000,0,1000,250
+
 
 
 #brick,200,400,200,800,300

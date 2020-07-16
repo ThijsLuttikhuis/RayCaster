@@ -5,12 +5,13 @@
 #include "Ray.h"
 #include "../Window/Drawer.h"
 #include "../Utils/Utilities.h"
+#include "Texture.h"
 
-void rc::Ray::drawTopDown(const cv::String &name, const Position &centerPoint) {
+void rc::Ray::drawTopDown(const cv::String &name, const Position &centerPoint, const double &zoomFactor) {
 
     window::Drawer::drawLineSegment(name, centerPoint.x, centerPoint.y,
-          centerPoint.x - position.x + wallIntersect.location.x,
-          centerPoint.y - position.y + wallIntersect.location.y,
+          centerPoint.x + (wallIntersect.location.x - position.x)*zoomFactor,
+          centerPoint.y + (wallIntersect.location.y - position.y)*zoomFactor,
           {255,255,255});
 }
 
@@ -24,6 +25,7 @@ void rc::Ray::calculateCollision(const cv::String &name, World &walls, const dou
             wallIntersect.location = newEnd;
             wallIntersect.wallHeight = wall.height;
             wallIntersect.wallTexture = wall.type;
+            wallIntersect.wallSection = newEnd.distance(wall.start);
             break;
         }
     }
@@ -41,7 +43,7 @@ void rc::Ray::draw3D(const cv::String &name, int xLeft, int width, const double 
 
     double horizontalDistance = position.distance(wallIntersect.location);
 
-    double playerHeight = 180;                          // cm
+    double playerHeight = 180;          // cm
 
     if (wallIntersect.wallHeight == 0.0 || wallIntersect.wallTexture.empty()) {
         return;
@@ -60,9 +62,14 @@ void rc::Ray::draw3D(const cv::String &name, int xLeft, int width, const double 
     int bottomDrawHeight = static_cast<int>(yPixels * (0.5*wallBottom/verticalDistance + 0.5));
     int topDrawHeight = static_cast<int>(yPixels * (0.5*wallTop/verticalDistance + 0.5));
 
+    int realBottom = bottomDrawHeight;
+    int realTop = topDrawHeight;
     bottomDrawHeight = bottomDrawHeight > yPixels ? yPixels : bottomDrawHeight;
     topDrawHeight = topDrawHeight < 0 ? 0 : topDrawHeight;
 
-    window::Drawer::drawRectangle(name, xLeft, topDrawHeight,
-          width, bottomDrawHeight - topDrawHeight, {255,255,255});
+    //window::Drawer::drawRectangle(name, xLeft, topDrawHeight,
+    //      width, bottomDrawHeight - topDrawHeight, {255,255,255});
+
+    window::Texture::drawTexture(name, wallIntersect.wallTexture, xLeft, bottomDrawHeight,
+          topDrawHeight, realBottom, realTop, wallIntersect.wallSection, wallIntersect.wallHeight);
 }

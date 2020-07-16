@@ -6,6 +6,17 @@
 #include "Player.h"
 #include "../Window/Drawer.h"
 
+#define FORWARDS 119 //w
+#define LEFT 97 //a
+#define BACKWARD 115 //s
+#define RIGHT 100 //d
+
+#define ROT_LEFT 113 //q
+#define ROT_RIGHT 101 //e
+
+#define ZOOM_OUT 45 //-
+#define ZOOM_IN 61 //=
+
 void Player::createRays() {
     rays.clear();
     double fov_2 = fovHorizontal / 2.0;
@@ -32,7 +43,7 @@ void Player::drawRaysTopDown(const cv::String &name){
     for (auto &ray : rays) {
         if ((count+=1) > skip) {
             count -= skip;
-            ray.drawTopDown(name, centerOfScreen);
+            ray.drawTopDown(name, centerOfScreen, zoomFactor);
         }
     }
     window::Drawer::drawCircle(name, centerOfScreen.x, centerOfScreen.y,
@@ -142,4 +153,27 @@ const Position &Player::getPosition() const {
     return position;
 }
 
+void Player::setZoomTopDown(double zoom) {
+    zoomFactor = zoom;
+}
 
+void Player::zoomTopDown(int key) {
+    double zoomSpeed = 1.5;
+    switch(key) {
+        case ZOOM_IN:
+            zoomFactor *= zoomSpeed;
+            break;
+
+        case ZOOM_OUT:
+            zoomFactor /= zoomSpeed;
+            break;
+        default:
+            return;
+    }
+
+    std::cout << "Zoom is: " << zoomFactor << std::endl;
+}
+
+const double &Player::getZoomTopDown() const {
+    return zoomFactor;
+}

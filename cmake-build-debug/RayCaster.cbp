@@ -98,6 +98,12 @@
 		<Unit filename="/home/thijs/Raycaster/RayCaster/RayCasting/Ray.h">
 			<Option target="RayCaster"/>
 		</Unit>
+		<Unit filename="/home/thijs/Raycaster/RayCaster/RayCasting/Texture.cpp">
+			<Option target="RayCaster"/>
+		</Unit>
+		<Unit filename="/home/thijs/Raycaster/RayCaster/RayCasting/Texture.h">
+			<Option target="RayCaster"/>
+		</Unit>
 		<Unit filename="/home/thijs/Raycaster/RayCaster/RayCasting/Wall.cpp">
 			<Option target="RayCaster"/>
 		</Unit>

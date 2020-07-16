@@ -9,6 +9,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/RayCaster.dir/Utils/Timer.cpp.o"
   "CMakeFiles/RayCaster.dir/RayCasting/World.cpp.o"
   "CMakeFiles/RayCaster.dir/RayCasting/Wall.cpp.o"
+  "CMakeFiles/RayCaster.dir/RayCasting/Texture.cpp.o"
   "RayCaster.pdb"
   "RayCaster"
 )

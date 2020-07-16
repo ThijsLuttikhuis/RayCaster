@@ -177,6 +177,33 @@ RayCasting/Ray.cpp.s:
 	$(MAKE) -f CMakeFiles/RayCaster.dir/build.make CMakeFiles/RayCaster.dir/RayCasting/Ray.cpp.s
 .PHONY : RayCasting/Ray.cpp.s
 
+RayCasting/Texture.o: RayCasting/Texture.cpp.o
+
+.PHONY : RayCasting/Texture.o
+
+# target to build an object file
+RayCasting/Texture.cpp.o:
+	$(MAKE) -f CMakeFiles/RayCaster.dir/build.make CMakeFiles/RayCaster.dir/RayCasting/Texture.cpp.o
+.PHONY : RayCasting/Texture.cpp.o
+
+RayCasting/Texture.i: RayCasting/Texture.cpp.i
+
+.PHONY : RayCasting/Texture.i
+
+# target to preprocess a source file
+RayCasting/Texture.cpp.i:
+	$(MAKE) -f CMakeFiles/RayCaster.dir/build.make CMakeFiles/RayCaster.dir/RayCasting/Texture.cpp.i
+.PHONY : RayCasting/Texture.cpp.i
+
+RayCasting/Texture.s: RayCasting/Texture.cpp.s
+
+.PHONY : RayCasting/Texture.s
+
+# target to generate assembly for a file
+RayCasting/Texture.cpp.s:
+	$(MAKE) -f CMakeFiles/RayCaster.dir/build.make CMakeFiles/RayCaster.dir/RayCasting/Texture.cpp.s
+.PHONY : RayCasting/Texture.cpp.s
+
 RayCasting/Wall.o: RayCasting/Wall.cpp.o
 
 .PHONY : RayCasting/Wall.o
@@ -408,6 +435,9 @@ help:
 	@echo "... RayCasting/Ray.o"
 	@echo "... RayCasting/Ray.i"
 	@echo "... RayCasting/Ray.s"
+	@echo "... RayCasting/Texture.o"
+	@echo "... RayCasting/Texture.i"
+	@echo "... RayCasting/Texture.s"
 	@echo "... RayCasting/Wall.o"
 	@echo "... RayCasting/Wall.i"
 	@echo "... RayCasting/Wall.s"

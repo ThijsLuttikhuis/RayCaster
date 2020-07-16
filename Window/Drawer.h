@@ -15,6 +15,7 @@
 namespace window {
 
 class Drawer {
+private:
 
 public:
     static void drawRectangle(const cv::String &name,
@@ -32,6 +33,8 @@ public:
     static void drawLineSegment(const cv::String &name,
           const double &xStart, const double &yStart, const double &angle, const cv::Vec3b &color);
 
+    static void drawPixel(const cv::String &name,
+          const int &x, const int &y, const cv::Vec3b &color);
 
 };
 

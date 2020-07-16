@@ -9,12 +9,17 @@
 #include "Utils/Timer.h"
 #include "RayCasting/Player.h"
 #include "RayCasting/Ray.h"
+#include "RayCasting/Texture.h"
 
 //#define PRINT_TIMING
-#define PRINT_KEY_PRESS
+//#define PRINT_KEY_PRESS
 
 int main() {
 
+    // init Textures
+    window::Texture::addTexture("../stonebrick.png", 50, 50);
+
+    cv::waitKeyEx(0);
     // init Top Down Window
     cv::String windowNameTopDown = "Raycaster Top Down View";
     window::Window::initializeWindow(windowNameTopDown, 500, 800);
@@ -74,6 +79,7 @@ int main() {
 
         // move Player
         player.move(t, key);
+        player.zoomTopDown(key);
 
         // create/collide Rays
         player.createRays();
@@ -84,7 +90,7 @@ int main() {
         timerDrawTopDown.start();
 #endif
         player.drawRaysTopDown(windowNameTopDown);
-        world.drawWallsTopDown(windowNameTopDown, player.getPosition());
+        world.drawWallsTopDown(windowNameTopDown, player);
 #ifdef PRINT_TIMING
         timerDrawTopDown.printMilliSeconds();
 #endif

@@ -7,6 +7,8 @@
 namespace window {
 
 
+
+
 void Drawer::drawRectangle(const cv::String &name, const int &xLeftBottom, const int &yLeftBottom, const int &width,
                            const int &height, const cv::Vec3b &color) {
 
@@ -100,5 +102,12 @@ void Drawer::drawLineSegment(const cv::String &name,
     drawLineSegment(name, xStart, yStart, xEnd, yEnd, color);
 }
 
+void Drawer::drawPixel(const cv::String &name, const int &x, const int &y, const cv::Vec3b &color) {
+    if (x < 0 || x > Window::getXPixels(name) || y < 0 || y > Window::getYPixels(name)) {
+        std::cerr << "setting pixel outside image with coordinate x = " << x << " and y = " << y << "." << std::endl;
+        return;
+    }
+    Window::setPixel(name,x,y,color);
+}
 
 } //window
