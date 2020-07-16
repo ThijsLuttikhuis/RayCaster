@@ -11,13 +11,15 @@
 #include <opencv2/core/cvstd.hpp>
 #include "../Utils/Position.h"
 
+class Player;
 class Wall {
 public:
     std::string type;
     Position start;
     Position end;
+    double height;
 
-    void drawTopDown(const cv::String &name);
+    void drawTopDown(const cv::String &name, const Position &centerOfScreen, const Player &player);
 
     Wall() : type(""), start(), end() { };
     Wall(std::string type, const Position &start, const Position &end) :

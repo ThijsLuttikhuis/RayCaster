@@ -30,6 +30,7 @@ class Window {
         static bool setPixel(const cv::String &name, const int &x, const int &y, const cv::Vec3b &color);
 
         static void initializeWindow(const cv::String &name, const int &width, const int &height);
+        static void moveWindows(const std::vector<cv::String> &names, int startX, int startY, bool nextToEachother);
         static void resetWindow(const cv::String &name);
         static int updateWindow(const cv::String &name);
 

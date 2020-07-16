@@ -5,56 +5,68 @@
 #include "Ray.h"
 #include "../Window/Drawer.h"
 #include "../Utils/Utilities.h"
+#include "Texture.h"
 
-void rc::Ray::drawTopDown(const cv::String &name) {
-    window::Drawer::drawLineSegment(name, position.x, position.y, end.x, end.y, {255,255,255});
+void rc::Ray::drawTopDown(const cv::String &name, const Position &centerPoint, const double &zoomFactor) {
+
+    window::Drawer::drawLineSegment(name, centerPoint.x, centerPoint.y,
+          centerPoint.x + (wallIntersect.location.x - position.x)*zoomFactor,
+          centerPoint.y + (wallIntersect.location.y - position.y)*zoomFactor,
+          {255,255,255});
 }
 
-void rc::Ray::drawTopDown(const cv::String &name, const Position &endPoint) {
-    window::Drawer::drawLineSegment(name, position.x, position.y, endPoint.x, endPoint.y, {255,255,255});
-}
-
-void rc::Ray::calculateCollision(const cv::String &name, World &walls) {
+void rc::Ray::calculateCollision(const cv::String &name, World &walls, const double &viewDistance) {
     walls.sortWalls(position);
 
-    resetEnd(name);
+    resetEnd(name, viewDistance);
     for (auto &wall : walls.getWalls()) {
-        Position newEnd = lineSegmentIntersection(position, end, wall.start, wall.end);
+        Position newEnd = lineSegmentIntersection(position, wallIntersect.location, wall.start, wall.end);
         if (newEnd != Position()) {
-            end = newEnd;
+            wallIntersect.location = newEnd;
+            wallIntersect.wallHeight = wall.height;
+            wallIntersect.wallTexture = wall.type;
+            wallIntersect.wallSection = newEnd.distance(wall.start);
             break;
         }
     }
 }
 
-void rc::Ray::resetEnd(const cv::String &name) {
-    int length = std::max(window::Window::getXPixels(name), window::Window::getYPixels(name));
-    double xEnd = position.x + sin(angle.getAngleRad()) * length;
-    double yEnd = position.y + cos(angle.getAngleRad()) * length;
-    end = Position(xEnd, yEnd);
+void rc::Ray::resetEnd(const cv::String &name, const double &viewDistance) {
+    double xEnd = position.x + sin(angle.getAngleRad()) * viewDistance;
+    double yEnd = position.y + cos(angle.getAngleRad()) * viewDistance;
+    wallIntersect.location = Position(xEnd, yEnd);
+    wallIntersect.wallTexture = "";
+    wallIntersect.wallHeight = 0.0;
 }
 
-void rc::Ray::draw3D(const cv::String &name, int xLeft, int width) {
-    double distance = position.distance(end);
-    int xPixels = window::Window::getXPixels(name);
-    int yPixels = window::Window::getYPixels(name);
+void rc::Ray::draw3D(const cv::String &name, int xLeft, int width, const double &fovHorizontal) {
 
-    int smallestDim = std::min(xPixels, yPixels);
+    double horizontalDistance = position.distance(wallIntersect.location);
 
-    // out of range
-    if (distance > smallestDim*0.95) {
+    double playerHeight = 180;          // cm
+
+    if (wallIntersect.wallHeight == 0.0 || wallIntersect.wallTexture.empty()) {
         return;
     }
 
-    // distance at which the wall covers the whole screen
-    double distanceAtFullHeight = 3.0 * window::Window::getYPixels(name);
+    double wallBottom = playerHeight;
+    double wallTop = playerHeight - wallIntersect.wallHeight;
 
-    // redundant pixel drawing
-    if (abs(distance) > distanceAtFullHeight * yPixels * 0.5) {
-        distance = distanceAtFullHeight * yPixels * 0.5;
-    }
+    int yPixels = window::Window::getYPixels(name);
+    int xPixels = window::Window::getXPixels(name);
 
-    int yBottom = static_cast<int>(0.5 * yPixels - distanceAtFullHeight/distance);
-    int height = static_cast<int>(distanceAtFullHeight*2.0/distance);
-    window::Drawer::drawRectangle(name, xLeft, yBottom, width, height, {255,255,255});
+    double fovVertical = fovHorizontal * yPixels / xPixels;
+    double fovVerticalRad = deg2Rad(fovVertical);
+    double verticalDistance = horizontalDistance*tan(0.5*fovVerticalRad);
+
+    int bottomDrawHeight = static_cast<int>(yPixels * (0.5*wallBottom/verticalDistance + 0.5));
+    int topDrawHeight = static_cast<int>(yPixels * (0.5*wallTop/verticalDistance + 0.5));
+
+    int realBottom = bottomDrawHeight;
+    int realTop = topDrawHeight;
+    bottomDrawHeight = bottomDrawHeight > yPixels ? yPixels : bottomDrawHeight;
+    topDrawHeight = topDrawHeight < 0 ? 0 : topDrawHeight;
+
+    window::Texture::drawTexture(name, wallIntersect.wallTexture, xLeft, bottomDrawHeight,
+          topDrawHeight, realBottom, realTop, wallIntersect.wallSection, wallIntersect.wallHeight);
 }

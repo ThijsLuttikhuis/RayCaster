@@ -9,22 +9,36 @@
 #include "Utils/Timer.h"
 #include "RayCasting/Player.h"
 #include "RayCasting/Ray.h"
+#include "RayCasting/Texture.h"
+
+//#define PRINT_TIMING
+//#define PRINT_KEY_PRESS
 
 int main() {
-    // init 3D Window
-    cv::String windowName3D = "Raycaster 3D View";
-    window::Window::initializeWindow(windowName3D, 1024, 768);
+
+    // init Textures
+    window::Texture::addTexture("../clocktexture.png", "stonebrick", 80, 80);
 
     // init Top Down Window
     cv::String windowNameTopDown = "Raycaster Top Down View";
-    window::Window::initializeWindow(windowNameTopDown, 512, 768);
+    window::Window::initializeWindow(windowNameTopDown, 500, 800);
+
+    // init 3D Window
+    cv::String windowName3D = "Raycaster 3D View";
+    window::Window::initializeWindow(windowName3D, 1280, 800);
+
+    // move Windows
+    cv::waitKeyEx(1);
+    window::Window::moveWindows({windowName3D,windowNameTopDown}, 100,100,true);
 
     // init World
     World world;
     world.getWallsFromFile("./../walls.txt");
 
     // init Player
-    Player player = Player({0, 0}, Angle(120), 120, 1440);
+    double fovHorizontal = 90;
+    int resolution360 = static_cast<int>(window::Window::getXPixels(windowName3D) * 360 / fovHorizontal);
+    Player player = Player({100, 100}, Angle(0), fovHorizontal, resolution360);
 
     // init Timer
     Timer timer;
@@ -36,10 +50,21 @@ int main() {
     Timer timerDrawTopDown("Top Down Draw Time");
     timerDrawTopDown.start();
 
+    bool printTotalTime = false;
+#ifdef PRINT_TIMING
+    printTotalTime = true;
+#endif
+
     // game Loop
     while(true) {
-        double t = timer.getSeconds(true);
+
+        double t = timer.getSeconds(printTotalTime);
+
         int key = window::Window::updateWindow(windowNameTopDown);
+#ifdef PRINT_KEY_PRESS
+        std::cout << "key: " << key << std::endl;
+#endif
+
         window::Window::updateWindow(windowName3D);
 
         // reset Window
@@ -53,20 +78,29 @@ int main() {
 
         // move Player
         player.move(t, key);
+        player.zoomTopDown(key);
 
         // create/collide Rays
         player.createRays();
         player.calculateCollisions(windowNameTopDown, world);
 
         // draw Top Down
+#ifdef PRINT_TIMING
         timerDrawTopDown.start();
+#endif
         player.drawRaysTopDown(windowNameTopDown);
-        world.drawWallsTopDown(windowNameTopDown);
+        world.drawWallsTopDown(windowNameTopDown, player);
+#ifdef PRINT_TIMING
         timerDrawTopDown.printMilliSeconds();
+#endif
 
         // draw 3D
+#ifdef PRINT_TIMING
         timerDraw3D.start();
+#endif
         player.drawRays3D(windowName3D);
+#ifdef PRINT_TIMING
         timerDraw3D.printMilliSeconds();
+#endif
     }
 }

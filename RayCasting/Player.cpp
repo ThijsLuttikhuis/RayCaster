@@ -6,13 +6,24 @@
 #include "Player.h"
 #include "../Window/Drawer.h"
 
+#define FORWARDS 119 //w
+#define LEFT 97 //a
+#define BACKWARD 115 //s
+#define RIGHT 100 //d
+
+#define ROT_LEFT 113 //q
+#define ROT_RIGHT 101 //e
+
+#define ZOOM_OUT 45 //-
+#define ZOOM_IN 61 //=
+
 void Player::createRays() {
     rays.clear();
-    double fov_2 = fieldOfView/2.0;
+    double fov_2 = fovHorizontal / 2.0;
     Angle aS = lookDirection - fov_2;
     double fovCounter = 0.0;
 
-    while (fovCounter < fieldOfView) {
+    while (fovCounter < fovHorizontal) {
         Angle rA = aS + fovCounter;
         rc::Ray ray = rc::Ray(position, rA);
         rays.push_back(ray);
@@ -21,7 +32,8 @@ void Player::createRays() {
 }
 
 void Player::drawRaysTopDown(const cv::String &name){
-    int maxDrawnRays = 10;
+    Position centerOfScreen = {0.5*window::Window::getXPixels(name), 0.5*window::Window::getYPixels(name)};
+    int maxDrawnRays = 20;
     int size = rays.size();
     double skip = 0;
     if (size > maxDrawnRays) {
@@ -31,21 +43,17 @@ void Player::drawRaysTopDown(const cv::String &name){
     for (auto &ray : rays) {
         if ((count+=1) > skip) {
             count -= skip;
-            ray.drawTopDown(name);
+            ray.drawTopDown(name, centerOfScreen, zoomFactor);
         }
     }
-    window::Drawer::drawCircle(name, (int)position.x, (int)position.y, 3, 5, {255,255,255});
+    window::Drawer::drawCircle(name, centerOfScreen.x, centerOfScreen.y,
+          3, 5, {255,255,255});
 }
 
 void Player::drawRays3D(const cv::String &name) {
-    int nThreads = 8;
+    int nThreads = 12;
     int xPixels = window::Window::getXPixels(name);
     int size = rays.size();
-//    for (unsigned long i = 0; i < size; i++) {
-//        int xLeft = static_cast<int>(xPixels * (size-i-1) / size);
-//        int width = static_cast<int>(xPixels/size);
-//        rays[i].draw3D(name, xLeft, width);
-//    }
 
     if (nThreads > 1) {
         // Init Thread arguments
@@ -91,7 +99,7 @@ void* Player::drawRays3DThread(void* arg) {
     for (unsigned long i = startIndex; i < endIndex; i++) {
         int xLeft = static_cast<int>(xPixels * (size-i-1) / size);
         int width = static_cast<int>(xPixels/size);
-        rays[i].draw3D(name, xLeft, width);
+        rays[i].draw3D(name, xLeft, width, fovHorizontal);
     }
 
     return nullptr;
@@ -137,8 +145,35 @@ void Player::move(double dt, int key) {
 
 void Player::calculateCollisions(const cv::String &name, World &world) {
     for (auto &ray : rays) {
-        ray.calculateCollision(name, world);
+        ray.calculateCollision(name, world, viewdistance);
     }
 }
 
+const Position &Player::getPosition() const {
+    return position;
+}
 
+void Player::setZoomTopDown(double zoom) {
+    zoomFactor = zoom;
+}
+
+void Player::zoomTopDown(int key) {
+    double zoomSpeed = 1.5;
+    switch(key) {
+        case ZOOM_IN:
+            zoomFactor *= zoomSpeed;
+            break;
+
+        case ZOOM_OUT:
+            zoomFactor /= zoomSpeed;
+            break;
+        default:
+            return;
+    }
+
+    std::cout << "Zoom is: " << zoomFactor << std::endl;
+}
+
+const double &Player::getZoomTopDown() const {
+    return zoomFactor;
+}

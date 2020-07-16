@@ -4,6 +4,7 @@
 
 #include "Window.h"
 #include "Drawer.h"
+#include "../Utils/Timer.h"
 
 namespace window {
 
@@ -50,18 +51,29 @@ bool Window::setPixel(const cv::String &name, const int &x, const int &y, const 
 void Window::initializeWindow(const cv::String &name, const int &width, const int &height) {
     auto* image = new cv::Mat(height, width, CV_8UC3);
     images[name] = *image;
-
     cv::namedWindow(name, cv::WINDOW_AUTOSIZE);
+    resetWindow(name);
 }
 
 int Window::updateWindow(const cv::String &name) {
     cv::imshow(name, images[name]);
-    return cv::waitKey(1);
+    return cv::waitKeyEx(1);
 }
 
 void Window::resetWindow(const cv::String &name) {
     images[name] = cv::Mat::zeros(images[name].rows, images[name].cols, CV_8UC3);
 
+}
+
+void Window::moveWindows(const std::vector<cv::String> &names, int startX, int startY, bool nextToEachother) {
+    for (auto &name : names) {
+        auto imXPixels = getXPixels(name);
+        std::cout << name << startX << std::endl;
+        cv::moveWindow(name, startX, 20);
+        if (nextToEachother) {
+            startX += (int)(imXPixels*1.02);
+        }
+    }
 }
 
 } //window

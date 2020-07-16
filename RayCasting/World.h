@@ -11,6 +11,8 @@
 #include "Wall.h"
 #include "../Utils/Position.h"
 
+class Player;
+
 class World {
 private:
     std::vector<Wall> walls;
@@ -21,7 +23,7 @@ public:
 
     [[nodiscard]] const std::vector<Wall> &getWalls() const;
     void sortWalls(const Position &pos);
-    void drawWallsTopDown(const cv::String &name);
+    void drawWallsTopDown(const cv::String &name, const Player &player);
 };
 
 

@@ -11,16 +11,8 @@
 #include "../Utils/Angle.h"
 #include "Ray.h"
 #include "../Utils/Timer.h"
-#include "World.h"
 
-#define FORWARDS 119 //w
-#define LEFT 97 //a
-#define BACKWARD 115 //s
-#define RIGHT 100 //d
-
-#define ROT_LEFT 113 //q
-#define ROT_RIGHT 101 //e
-
+class World;
 struct ThreadArgs {
 public:
     cv::String name;
@@ -34,25 +26,34 @@ class Player {
 private:
     Position position;
     Angle lookDirection;
-    double fieldOfView;
+    double fovHorizontal;
     int resolution360;
-    double moveSpeed = 500;
-    double rotateSpeed = 500;
+    double moveSpeed = 800;         // cm/s
+    double rotateSpeed = 360;       // deg/s
+    double viewdistance = 20000;    // cm
 
+    double zoomFactor = 1;
     std::vector<rc::Ray> rays;
 
     void* drawRays3DThread(void* arg);
 
 public:
     Player(Position position, Angle lookDirection, double fieldOfView, int resolution360) :
-        position(position), lookDirection(lookDirection), fieldOfView(fieldOfView), resolution360(resolution360) {};
+          position(position), lookDirection(lookDirection),
+          fovHorizontal(fieldOfView), resolution360(resolution360) {};
 
     void move(double dt, int key);
     void createRays();
     void calculateCollisions(const cv::String &name, World &world);
 
+    [[nodiscard]] const Position &getPosition() const;
+
     void drawRaysTopDown(const cv::String &name);
     void drawRays3D(const cv::String &name);
+
+    void zoomTopDown(int key);
+    void setZoomTopDown(double zoom);
+    const double &getZoomTopDown() const;
 
 };
 

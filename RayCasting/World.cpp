@@ -7,6 +7,7 @@
 #include <algorithm>
 #include "World.h"
 #include "../Utils/Utilities.h"
+#include "../Window/Window.h"
 
 bool World::getWallsFromFile(const std::string &fileName) {
     walls.clear();
@@ -21,14 +22,15 @@ bool World::getWallsFromFile(const std::string &fileName) {
             }
             std::vector<std::string> parsedLine;
             split(line, parsedLine, ',');
-            char comment = '#';
-            if ((int)parsedLine[0][0] == (int)comment) {
+            char startComment = '#';
+            if ((int)parsedLine[0][0] == (int)startComment) {
                 continue;
             }
             Wall wall;
             wall.type = parsedLine[0];
             wall.start = {std::stod(parsedLine[1]), std::stod(parsedLine[2])};
             wall.end = {std::stod(parsedLine[3]), std::stod(parsedLine[4])};
+            wall.height = std::stod(parsedLine[5]);
             walls.push_back(wall);
         }
         myfile.close();
@@ -39,9 +41,10 @@ bool World::getWallsFromFile(const std::string &fileName) {
     return false;
 }
 
-void World::drawWallsTopDown(const cv::String &name) {
+void World::drawWallsTopDown(const cv::String &name, const Player &player) {
+    Position centerOfScreen = {0.5*window::Window::getXPixels(name), 0.5*window::Window::getYPixels(name)};
     for (auto &wall : walls) {
-        wall.drawTopDown(name);
+        wall.drawTopDown(name, centerOfScreen, player);
     }
 }
 
