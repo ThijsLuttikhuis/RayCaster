@@ -4,9 +4,14 @@
 stonebrick,0,0,300,0,250
 stonebrick,0,0,0,1000,250
 stonebrick,300,1000,300,0,250
-stonebrick,300,1000,0,1000,250
 
+#stonebrick,300,1000,0,1000,250
 
+handdrawnbrickwall,300,1000,0,1000,250
+
+#handdrawnbrickwall,0,0,300,0,250
+#handdrawnbrickwall,0,0,0,1000,250
+#handdrawnbrickwall,300,1000,300,0,250
 
 #brick,200,400,200,800,300
 #brick,200,800,400,600,300

@@ -17,15 +17,21 @@
 int main() {
 
     // init Textures
-    window::Texture::addTexture("../clocktexture.png", "stonebrick", 80, 80);
+    bool texturesLoaded = true;
+    texturesLoaded &= window::Texture::addTexture("../stonebrick.png", 80, 80);
+    texturesLoaded &= window::Texture::addTexture("../handdrawnbrickwall.jpg", 80, 80);
+    if (!texturesLoaded) {
+        return -1;
+    }
+
 
     // init Top Down Window
     cv::String windowNameTopDown = "Raycaster Top Down View";
-    window::Window::initializeWindow(windowNameTopDown, 500, 800);
+    window::Window::initializeWindow(windowNameTopDown, 320, 480);
 
     // init 3D Window
     cv::String windowName3D = "Raycaster 3D View";
-    window::Window::initializeWindow(windowName3D, 1280, 800);
+    window::Window::initializeWindow(windowName3D, 720, 480);
 
     // move Windows
     cv::waitKeyEx(1);
