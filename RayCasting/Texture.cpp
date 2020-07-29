@@ -13,25 +13,38 @@ namespace window {
 std::map<std::string, TextureAttributes> Texture::textures;
 
 
-void Texture::addTexture(const std::string &filePath) {
-    addTexture(filePath, 100, 100);
+bool Texture::addTexture(const std::string &filePath) {
+    return addTexture(filePath, 100, 100);
 }
 
-void Texture::addTexture(const std::string &filePath, const std::string &name) {
-    addTexture(filePath, name, 100, 100);
+bool Texture::addTexture(const std::string &filePath, const std::string &name) {
+    return addTexture(filePath, name, 100, 100);
 }
 
-void
-Texture::addTexture(const std::string &filePath, const std::string &name, const double &width, const double &height) {
+bool Texture::addTexture(const std::string &filePath, const std::string &name, const double &width, const double &height) {
     TextureAttributes textureAttributes;
     textureAttributes.width = width;
     textureAttributes.height = height;
     textureAttributes.texture = cv::imread(filePath);
+    if (textureAttributes.texture.empty()) {
+        std::cout << "texture not loaded! exiting..." << std::endl;
+        return false;
+    }
 
     textures[name] = textureAttributes;
+    return true;
 }
 
-void Texture::addTexture(const std::string &filePath, const double &width, const double &height) {
+bool Texture::addTexture(const std::string &filePath, const double &width, const double &height) {
+    TextureAttributes textureAttributes;
+    textureAttributes.width = width;
+    textureAttributes.height = height;
+    textureAttributes.texture = cv::imread(filePath);
+    if (textureAttributes.texture.empty()) {
+        std::cout << "texture not loaded! exiting..." << std::endl;
+        return false;
+    }
+
     std::string name;
     auto it = filePath.end();
     auto itEnd = filePath.end();
@@ -47,12 +60,8 @@ void Texture::addTexture(const std::string &filePath, const double &width, const
     }
     name.insert(name.begin(), it, itEnd);
 
-    TextureAttributes textureAttributes;
-    textureAttributes.width = width;
-    textureAttributes.height = height;
-    textureAttributes.texture = cv::imread(filePath);
-
     textures[name] = textureAttributes;
+    return true;
 }
 
 double Texture::getWidth(const std::string &name) {
@@ -67,10 +76,9 @@ const cv::Mat &Texture::getTexture(const std::string &name) {
     return textures[name].texture;
 }
 
-
 void Texture::drawTexture(const std::string &windowName, const std::string &textureName, const int &xPixel,
-                          const int &topPixel, const int &bottomPixel, const int &realTop, const int &realBottom,
-                          const double &wallXPosition, const double &wallHeight) {
+      const int &topPixel, const int &bottomPixel, const int &realTop, const int &realBottom,
+      const double &wallXPosition, const double &wallHeight) {
 
     // get texture
     auto &textureAttributes = textures[textureName];
@@ -85,11 +93,11 @@ void Texture::drawTexture(const std::string &windowName, const std::string &text
     int textureXPixel = static_cast<int>(texture.cols * xLocation);
 
     // loop over the column and draw
-    const int finalTopPixel = std::min(realYPixels, window::Window::getYPixels(windowName) - realBottom);
+    const int finalTopPixel = std::min(realYPixels, window::Window::getYPixels(windowName)-realBottom);
     for (int i = bottomPixel - realBottom; i < finalTopPixel; i++) {
         int yPixel = i + realBottom;
         int textureYPixel = static_cast<int>(repeats * std::fmod(
-              (double) i / realYPixels, 1.0 / repeats) * texture.rows);
+              (double)i / realYPixels, 1.0/repeats) * texture.rows);
 
         // get pixel from texture
         auto &pixelColor = texture.at<cv::Vec3b>(textureYPixel, textureXPixel);

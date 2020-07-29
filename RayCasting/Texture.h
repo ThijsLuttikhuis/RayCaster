@@ -22,10 +22,10 @@ private:
     static std::map<std::string, TextureAttributes> textures;
 
 public:
-    static void addTexture(const std::string &filePath);
-    static void addTexture(const std::string &filePath, const std::string &name);
-    static void addTexture(const std::string &filePath, const double &width, const double &height);
-    static void addTexture(const std::string &filePath, const std::string& name, const double &width, const double &height);
+    static bool addTexture(const std::string &filePath);
+    static bool addTexture(const std::string &filePath, const std::string &name);
+    static bool addTexture(const std::string &filePath, const double &width, const double &height);
+    static bool addTexture(const std::string &filePath, const std::string& name, const double &width, const double &height);
 
     [[nodiscard]] static const cv::Mat &getTexture(const std::string &name);
     [[nodiscard]] static double getWidth(const std::string &name);
