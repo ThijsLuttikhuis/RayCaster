@@ -144,6 +144,7 @@ void Player::move(double dt, int key) {
 }
 
 void Player::calculateCollisions(const cv::String &name, World &world) {
+    world.sortWalls(position);
     for (auto &ray : rays) {
         ray.calculateCollision(name, world, viewdistance);
     }

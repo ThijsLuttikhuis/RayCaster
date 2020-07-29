@@ -11,7 +11,7 @@
 #include "RayCasting/Ray.h"
 #include "RayCasting/Texture.h"
 
-//#define PRINT_TIMING
+#define PRINT_TIMING
 //#define PRINT_KEY_PRESS
 
 int main() {
@@ -24,10 +24,9 @@ int main() {
         return -1;
     }
 
-
     // init Top Down Window
     cv::String windowNameTopDown = "Raycaster Top Down View";
-    window::Window::initializeWindow(windowNameTopDown, 320, 480);
+    window::Window::initializeWindow(windowNameTopDown, 360, 480);
 
     // init 3D Window
     cv::String windowName3D = "Raycaster 3D View";
@@ -64,7 +63,7 @@ int main() {
     // game Loop
     while(true) {
 
-        double t = timer.getSeconds(printTotalTime);
+        double dt = timer.getSeconds(printTotalTime);
 
         int key = window::Window::updateWindow(windowNameTopDown);
 #ifdef PRINT_KEY_PRESS
@@ -83,7 +82,7 @@ int main() {
         }
 
         // move Player
-        player.move(t, key);
+        player.move(dt, key);
         player.zoomTopDown(key);
 
         // create/collide Rays
