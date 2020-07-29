@@ -16,8 +16,6 @@ void rc::Ray::drawTopDown(const cv::String &name, const Position &centerPoint, c
 }
 
 void rc::Ray::calculateCollision(const cv::String &name, World &walls, const double &viewDistance) {
-    walls.sortWalls(position);
-
     resetEnd(name, viewDistance);
     for (auto &wall : walls.getWalls()) {
         Position newEnd = lineSegmentIntersection(position, wallIntersect.location, wall.start, wall.end);
