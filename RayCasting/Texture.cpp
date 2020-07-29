@@ -13,24 +13,38 @@ namespace window {
 std::map<std::string, TextureAttributes> Texture::textures;
 
 
-void Texture::addTexture(const std::string &filePath) {
-    addTexture(filePath, 100, 100);
+bool Texture::addTexture(const std::string &filePath) {
+    return addTexture(filePath, 100, 100);
 }
 
-void Texture::addTexture(const std::string &filePath, const std::string &name) {
-    addTexture(filePath, name, 100, 100);
+bool Texture::addTexture(const std::string &filePath, const std::string &name) {
+    return addTexture(filePath, name, 100, 100);
 }
 
-void Texture::addTexture(const std::string &filePath, const std::string &name, const double &width, const double &height) {
+bool Texture::addTexture(const std::string &filePath, const std::string &name, const double &width, const double &height) {
     TextureAttributes textureAttributes;
     textureAttributes.width = width;
     textureAttributes.height = height;
     textureAttributes.texture = cv::imread(filePath);
+    if (textureAttributes.texture.empty()) {
+        std::cout << "texture not loaded! exiting..." << std::endl;
+        return false;
+    }
 
     textures[name] = textureAttributes;
+    return true;
 }
 
-void Texture::addTexture(const std::string &filePath, const double &width, const double &height) {
+bool Texture::addTexture(const std::string &filePath, const double &width, const double &height) {
+    TextureAttributes textureAttributes;
+    textureAttributes.width = width;
+    textureAttributes.height = height;
+    textureAttributes.texture = cv::imread(filePath);
+    if (textureAttributes.texture.empty()) {
+        std::cout << "texture not loaded! exiting..." << std::endl;
+        return false;
+    }
+
     std::string name;
     auto it = filePath.end();
     auto itEnd = filePath.end();
@@ -46,12 +60,8 @@ void Texture::addTexture(const std::string &filePath, const double &width, const
     }
     name.insert(name.begin(), it, itEnd);
 
-    TextureAttributes textureAttributes;
-    textureAttributes.width = width;
-    textureAttributes.height = height;
-    textureAttributes.texture = cv::imread(filePath);
-
     textures[name] = textureAttributes;
+    return true;
 }
 
 double Texture::getWidth(const std::string &name) {
