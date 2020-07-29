@@ -46,9 +46,29 @@ opencv2/core/cvstd.hpp
 World.h
 /home/thijs/Raycaster/RayCaster/RayCasting/World.h
 
+/home/thijs/Raycaster/RayCaster/RayCasting/Texture.cpp
+utility
+-
+vector
+-
+opencv2/opencv.hpp
+-
+Texture.h
+/home/thijs/Raycaster/RayCaster/RayCasting/Texture.h
+../Window/Drawer.h
+/home/thijs/Raycaster/RayCaster/Window/Drawer.h
+
 /home/thijs/Raycaster/RayCaster/RayCasting/Texture.h
 opencv2/core/mat.hpp
 -
+
+/home/thijs/Raycaster/RayCaster/RayCasting/Wall.cpp
+Wall.h
+/home/thijs/Raycaster/RayCaster/RayCasting/Wall.h
+../Window/Drawer.h
+/home/thijs/Raycaster/RayCaster/Window/Drawer.h
+Player.h
+/home/thijs/Raycaster/RayCaster/RayCasting/Player.h
 
 /home/thijs/Raycaster/RayCaster/RayCasting/Wall.h
 string
@@ -59,6 +79,20 @@ opencv2/core/cvstd.hpp
 -
 ../Utils/Position.h
 /home/thijs/Raycaster/RayCaster/Utils/Position.h
+
+/home/thijs/Raycaster/RayCaster/RayCasting/World.cpp
+iostream
+-
+fstream
+-
+algorithm
+-
+World.h
+/home/thijs/Raycaster/RayCaster/RayCasting/World.h
+../Utils/Utilities.h
+/home/thijs/Raycaster/RayCaster/Utils/Utilities.h
+../Window/Window.h
+/home/thijs/Raycaster/RayCaster/Window/Window.h
 
 /home/thijs/Raycaster/RayCaster/RayCasting/World.h
 vector
@@ -113,6 +147,24 @@ iostream
 -
 map
 -
+
+/home/thijs/Raycaster/RayCaster/main.cpp
+iostream
+-
+opencv2/opencv.hpp
+-
+Window/Window.h
+/home/thijs/Raycaster/RayCaster/Window/Window.h
+Window/Drawer.h
+/home/thijs/Raycaster/RayCaster/Window/Drawer.h
+Utils/Timer.h
+/home/thijs/Raycaster/RayCaster/Utils/Timer.h
+RayCasting/Player.h
+/home/thijs/Raycaster/RayCaster/RayCasting/Player.h
+RayCasting/Ray.h
+/home/thijs/Raycaster/RayCaster/RayCasting/Ray.h
+RayCasting/Texture.h
+/home/thijs/Raycaster/RayCaster/RayCasting/Texture.h
 
 /usr/local/include/opencv4/opencv2/calib3d.hpp
 opencv2/core.hpp
