@@ -41,10 +41,6 @@ bool Window::setPixel(const cv::String &name, const int &x, const int &y, const 
         images[name].at<cv::Vec3b>(y, x) = color;
         return true;
     }
-//    else {
-//        std::cout << "ERROR: pixel with color {" << (int)color[0] << ", " << (int)color[1] << ", " << (int)color[2] <<
-//        "} and location {" << x << ", " << y << "} is not within margins." << std::endl;
-//    }
     return false;
 }
 

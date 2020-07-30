@@ -102,12 +102,42 @@ void Drawer::drawLineSegment(const cv::String &name,
     drawLineSegment(name, xStart, yStart, xEnd, yEnd, color);
 }
 
-void Drawer::drawPixel(const cv::String &name, const int &x, const int &y, const cv::Vec3b &color) {
-    if (x < 0 || x > Window::getXPixels(name) || y < 0 || y > Window::getYPixels(name)) {
-        std::cerr << "setting pixel outside image with coordinate x = " << x << " and y = " << y << "." << std::endl;
-        return;
+
+void Drawer::drawDottedLineSegment(const cv::String &name,
+                             const double &xStart, const double &yStart, const double &xEnd, const double &yEnd, const cv::Vec3b &color) {
+
+    double xA = xEnd - xStart;
+    double yA = yEnd - yStart;
+    if (abs(xA) > abs(yA)) {
+        double a = yA / xA;
+        double b = yStart - a * xStart;
+
+        auto x = std::min((int)xStart, (int)xEnd);
+        auto xM = std::max((int)xStart, (int)xEnd);
+        for (; x < xM; x+=2) {
+            auto yy = (int)round(x * a + b);
+            Window::setPixel(name, x, yy, color);
+        }
     }
-    Window::setPixel(name,x,y,color);
+    else {
+        double a =  xA / yA;
+        double b = xStart - a * yStart;
+
+        auto y = std::min((int)yStart, (int)yEnd);
+        auto yM = std::max((int)yStart, (int)yEnd);
+        for (; y < yM; y+=2) {
+            auto xx = (int)round(y * a + b);
+            Window::setPixel(name, xx, y, color);
+        }
+    }
+}
+
+
+void Drawer::drawPixel(const cv::String &name, const int &x, const int &y, const cv::Vec3b &color) {
+    bool success = Window::setPixel(name, x, y, color);
+    if (!success) {
+        std::cerr << "setting pixel outside image with coordinate x = " << x << " and y = " << y << "." << std::endl;
+    }
 }
 
 } //window

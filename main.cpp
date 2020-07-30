@@ -26,7 +26,7 @@ int main() {
 
     // init Top Down Window
     cv::String windowNameTopDown = "Raycaster Top Down View";
-    window::Window::initializeWindow(windowNameTopDown, 360, 480);
+    window::Window::initializeWindow(windowNameTopDown, 480, 480);
 
     // init 3D Window
     cv::String windowName3D = "Raycaster 3D View";

@@ -30,7 +30,8 @@ bool World::getWallsFromFile(const std::string &fileName) {
             wall.type = parsedLine[0];
             wall.start = {std::stod(parsedLine[1]), std::stod(parsedLine[2])};
             wall.end = {std::stod(parsedLine[3]), std::stod(parsedLine[4])};
-            wall.height = std::stod(parsedLine[5]);
+            wall.bot = std::stod(parsedLine[5]);
+            wall.top = std::stod(parsedLine[6]);
             walls.push_back(wall);
         }
         myfile.close();

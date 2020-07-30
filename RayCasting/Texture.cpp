@@ -77,8 +77,16 @@ const cv::Mat &Texture::getTexture(const std::string &name) {
 }
 
 void Texture::drawTexture(const std::string &windowName, const std::string &textureName, const int &xPixel,
-      const int &topPixel, const int &bottomPixel, const int &realTop, const int &realBottom,
-      const double &wallXPosition, const double &wallHeight) {
+      int topPixel, int bottomPixel, const double &wallXPosition, const double &wallHeight) {
+
+    // get window y-pixels
+    int yPixels = window::Window::getYPixels(windowName);
+
+    // limit drawing to the size of the screen
+    int realBottom = bottomPixel;
+    int realTop = topPixel;
+    bottomPixel = bottomPixel < 0 ? 0 : bottomPixel;
+    topPixel = topPixel > yPixels ? yPixels : topPixel;
 
     // get texture
     auto &textureAttributes = textures[textureName];
@@ -93,16 +101,16 @@ void Texture::drawTexture(const std::string &windowName, const std::string &text
     int textureXPixel = static_cast<int>(texture.cols * xLocation);
 
     // loop over the column and draw
-    const int finalTopPixel = std::min(realYPixels, window::Window::getYPixels(windowName)-realBottom);
-    for (int i = bottomPixel - realBottom; i < finalTopPixel; i++) {
-        int yPixel = i + realBottom;
+    int i = bottomPixel - realBottom;
+    const int finalTopPixel = std::min(realYPixels, yPixels - realBottom);
+    for (; i < finalTopPixel; i++) {
+        // get pixel from texture
         int textureYPixel = static_cast<int>(repeats * std::fmod(
               (double)i / realYPixels, 1.0/repeats) * texture.rows);
-
-        // get pixel from texture
         auto &pixelColor = texture.at<cv::Vec3b>(textureYPixel, textureXPixel);
 
         // set pixel in 3D view
+        int yPixel = i + realBottom;
         window::Drawer::drawPixel(windowName, xPixel, yPixel, pixelColor);
 
     }

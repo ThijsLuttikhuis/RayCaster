@@ -1,20 +1,18 @@
 # format:
-# wallName, startX, startY, endX, endY, wallHeight
+# wallName,         startX,     startY,     endX,       endY,       wallBot,    wallTop
+# |----------------|-----------|-----------|-----------|-----------|-----------|-----------|
+stonebrick,         170,        -5,         400,        -5,         0,          250
+stonebrick,         30,         -5,         -20,        -5,         0,          250
+stonebrick,         30,         0,          30,         -5,         0,          250
+stonebrick,         170,        0,          170,        -5,         0,          250
+stonebrick,         200,        0,          170,        0,          0,          250
+stonebrick,         0,          0,          30,         0,          0,          250
+stonebrick,         0,          0,          0,          1000,       0,          250
+stonebrick,         200,        1000,       200,        0,          0,          250
+stonebrick,         200,        1000,       600,        1000,       0,          250
+stonebrick,         -200,       1000,       0,          1000,       0,          250
+stonebrick,         -200,       980,        -200,       1000,       0,          250
+stonebrick,         -200,       980,        -20,        980,        0,          250
+stonebrick,         -20,        980,        -20,        -5,         0,          250
 
-
-stonebrick,170,-5,400,-5,250
-stonebrick,30,-5,-20,-5,250
-stonebrick,30,0,30,-5,250
-stonebrick,170,0,170,-5,250
-stonebrick,200,0,170,0,250
-stonebrick,0,0,30,0,250
-stonebrick,0,0,0,1000,250
-stonebrick,200,1000,200,0,250
-stonebrick,200,1000,600,1000,250
-stonebrick,-200,1000,0,1000,250
-stonebrick,-200,980,-200,1000,250
-stonebrick,-200,980,-20,980,250
-stonebrick,-20,980,-20,-5,250
-
-handdrawnbrickwall,-400,1400,600,1400,400
-#handdrawnbrickwall,-200,1400,0,1400,25
+handdrawnbrickwall, -400,       1400,       600,        1400,       0,          400
