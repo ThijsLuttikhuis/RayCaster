@@ -77,7 +77,8 @@ const cv::Mat &Texture::getTexture(const std::string &name) {
 }
 
 void Texture::drawTexture(const std::string &windowName, const std::string &textureName, const int &xPixel,
-      int topPixel, int bottomPixel, const double &wallXPosition, const double &wallHeight) {
+      int topPixel, int bottomPixel, const double &wallXPosition, const double &wallHeight,
+                          std::vector<std::pair<int, int>> &ignorePixels) {
 
     // get window y-pixels
     int yPixels = window::Window::getYPixels(windowName);
@@ -112,7 +113,6 @@ void Texture::drawTexture(const std::string &windowName, const std::string &text
         // set pixel in 3D view
         int yPixel = i + realBottom;
         window::Drawer::drawPixel(windowName, xPixel, yPixel, pixelColor);
-
     }
 }
 

@@ -79,7 +79,7 @@ void rc::Ray::draw3D(const cv::String &name, int xLeft, int width, const double 
         // draw texture
         window::Texture::drawTexture(name, wallIntersection.wallTexture, xLeft, bottomDrawHeight,
                                      topDrawHeight, wallIntersection.wallSection,
-                                     wallIntersection.wallTop);
+                                     wallIntersection.wallTop, ignorePixels);
     }
 }
 

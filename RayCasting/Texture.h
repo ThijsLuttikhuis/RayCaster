@@ -32,7 +32,8 @@ public:
     [[nodiscard]] static double getHeight(const std::string &name);
 
     static void drawTexture(const std::string &windowName, const std::string &textureName, const int &xPixel,
-          int topPixel, int bottomPixel, const double &wallXPosition, const double &wallHeight);
+          int topPixel, int bottomPixel, const double &wallXPosition, const double &wallHeight,
+                            std::vector<std::pair<int, int>> &ignorePixels);
 };
 //name, xLeft, topDrawHeight,
 //          width, bottomDrawHeight - topDrawHeight, {255,255,255}
