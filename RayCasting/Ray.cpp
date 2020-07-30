@@ -46,8 +46,10 @@ void rc::Ray::resetEnd(const cv::String &name, const double &viewDistance) {
 }
 
 void rc::Ray::draw3D(const cv::String &name, int xLeft, int width, const double &fovHorizontal) {
+    // vector that keeps track of parts of the screen that have been drawn already
     std::vector<std::pair<int, int>> ignorePixels;
 
+    // loop over all walls
     for (auto &wallIntersection : wallIntersections) {
 
         // ignore empty walls
@@ -79,7 +81,7 @@ void rc::Ray::draw3D(const cv::String &name, int xLeft, int width, const double 
         // draw texture
         window::Texture::drawTexture(name, wallIntersection.wallTexture, xLeft, bottomDrawHeight,
                                      topDrawHeight, wallIntersection.wallSection,
-                                     wallIntersection.wallTop, ignorePixels);
+                                     wallIntersection.wallBot, wallIntersection.wallTop, ignorePixels);
     }
 }
 

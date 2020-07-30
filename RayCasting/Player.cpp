@@ -51,7 +51,7 @@ void Player::drawRaysTopDown(const cv::String &name){
 }
 
 void Player::drawRays3D(const cv::String &name) {
-    int nThreads = 1;
+    int nThreads = 12;
     int xPixels = window::Window::getXPixels(name);
     int size = rays.size();
 
@@ -147,7 +147,7 @@ void Player::calculateCollisions(const cv::String &name, World &world) {
     world.sortWalls(position);
     for (auto &ray : rays) {
         ray.calculateCollision(name, world, viewdistance);
-        ray.sortCollisionsByDistance(false);
+        ray.sortCollisionsByDistance(true);
     }
 }
 
