@@ -18,8 +18,8 @@ int main() {
 
     // init Textures
     bool texturesLoaded = true;
-    texturesLoaded &= window::Texture::addTexture("../stonebrick.png", 80, 80);
-    texturesLoaded &= window::Texture::addTexture("../handdrawnbrickwall.jpg", 80, 80);
+    texturesLoaded &= window::Texture::addTexture("../Textures/stonebrick.png", 80, 80);
+    texturesLoaded &= window::Texture::addTexture("../Textures/handdrawnbrickwall.jpg", 80, 80);
     if (!texturesLoaded) {
         return -1;
     }
@@ -85,7 +85,7 @@ int main() {
         player.move(dt, key);
         player.zoomTopDown(key);
 
-        // create/collide Rays
+        // create new rays and collide
         player.createRays();
         player.calculateCollisions(windowNameTopDown, world);
 

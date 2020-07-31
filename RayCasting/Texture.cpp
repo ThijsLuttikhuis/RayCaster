@@ -78,7 +78,7 @@ const cv::Mat &Texture::getTexture(const std::string &name) {
 
 void Texture::drawTexture(const std::string &windowName, const std::string &textureName, const int &xPixel,
       int topPixel, int bottomPixel, const double &wallXPosition, const double &wallBot, const double &wallTop,
-                          std::vector<std::pair<int, int>> &ignorePixels) {
+                          std::list<std::pair<int, int>> &ignorePixels) {
 
     // get window y-pixels
     int yPixels = window::Window::getYPixels(windowName);
@@ -119,39 +119,33 @@ void Texture::drawTexture(const std::string &windowName, const std::string &text
     int endDraw = std::min(realYPixels+realBottom, yPixels);
 
     // make vector that draws all non-set pixels
-    std::vector<std::pair<int, int>> drawPixels;
+    std::list<std::pair<int, int>> drawPixels;
     drawPixels.emplace_back(startDraw, endDraw);
 
-    int sizeIgnore = ignorePixels.size();
-    for (unsigned int ig = 0; ig < sizeIgnore; ig++) {
-
-        int sizeDraw = drawPixels.size();
-        for (int dr = 0; dr < sizeDraw; dr++) {
+    for (auto ignore : ignorePixels) {
+        for (auto drIt = drawPixels.begin(); drIt != drawPixels.end(); drIt++) {
 
             // split draw into two smaller sections
-            if (ignorePixels[ig].first < drawPixels[dr].second) {
-                if (ignorePixels[ig].second < drawPixels[dr].second) {
-                    drawPixels.emplace_back(ignorePixels[ig].second, drawPixels[dr].second);
+            if (ignore.first < drIt->second && ignore.second > drIt->first) {
+                if (ignore.second < drIt->second) {
+                    drawPixels.emplace_back(ignore.second, drIt->second);
                 }
-                drawPixels[dr].second = ignorePixels[ig].first;
-            }
-            if (ignorePixels[ig].second > drawPixels[dr].first) {
-                if (ignorePixels[ig].first > drawPixels[dr].first) {
-                    drawPixels.emplace_back(drawPixels[dr].first, ignorePixels[ig].first);
+                if (ignore.first > drIt->first) {
+                    drawPixels.emplace_back(drIt->first, ignore.first);
                 }
-                drawPixels[dr].first = ignorePixels[ig].second;
+                drIt = drawPixels.erase(drIt);
             }
         }
     }
     // ignore the pixels currently set
     ignorePixels.emplace_back(startDraw, endDraw);
-
-    // remove excess components
-    for (auto it = drawPixels.begin(); it < drawPixels.end(); it++) {
-        if (it->first >= it->second) {
-            it = drawPixels.erase(it);
-        }
-    }
+//
+//    // remove excess components
+//    for (auto it = drawPixels.begin(); it != drawPixels.end(); it++) {
+//        if (it->first >= it->second) {
+//            it = drawPixels.erase(it);
+//        }
+//    }
 
     for (auto &draw : drawPixels) {
         for (int i = draw.first; i < draw.second; i++) {

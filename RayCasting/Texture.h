@@ -7,6 +7,7 @@
 
 
 #include <opencv2/core/mat.hpp>
+#include <list>
 
 namespace window {
 
@@ -33,7 +34,7 @@ public:
 
     static void drawTexture(const std::string &windowName, const std::string &textureName, const int &xPixel,
           int topPixel, int bottomPixel, const double &wallXPosition, const double &wallBot, const double &wallTop,
-                            std::vector<std::pair<int, int>> &ignorePixels);
+                            std::list<std::pair<int, int>> &ignorePixels);
 };
 //name, xLeft, topDrawHeight,
 //          width, bottomDrawHeight - topDrawHeight, {255,255,255}

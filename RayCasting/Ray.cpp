@@ -6,6 +6,7 @@
 #include "../Window/Drawer.h"
 #include "../Utils/Utilities.h"
 #include "Texture.h"
+#include <list>
 
 void rc::Ray::drawTopDown(const cv::String &name, const Position &centerPoint, const double &zoomFactor) {
 
@@ -47,7 +48,7 @@ void rc::Ray::resetEnd(const cv::String &name, const double &viewDistance) {
 
 void rc::Ray::draw3D(const cv::String &name, int xLeft, int width, const double &fovHorizontal) {
     // vector that keeps track of parts of the screen that have been drawn already
-    std::vector<std::pair<int, int>> ignorePixels;
+    std::list<std::pair<int, int>> ignorePixels;
 
     // loop over all walls
     for (auto &wallIntersection : wallIntersections) {
